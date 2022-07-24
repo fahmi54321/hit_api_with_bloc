@@ -3,12 +3,20 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import '../models/item_model.dart';
+import 'respository.dart';
 
 
-class NewsDbProvider{
-  Database? db; //todo 1
+class NewsDbProvider implements Source,Cache{ //todo 10
+  Database? db;
 
-  //todo 2
+  //todo 11
+  // return [] karena pada class ini method ini belum digunnakan
+  // method ini digunakan untuk store and fetch top ids
+  @override
+  Future<List<int>> fetchTopIds() async{
+    return [].cast<int>();
+  }
+
   void init() async{
     Directory documentDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentDirectory.path,"items.db");
@@ -42,7 +50,8 @@ class NewsDbProvider{
   }
 
 
-  //todo 3
+  //todo 12 (tambah anotasi override)
+  @override
   Future<ItemModel?> fetchItem(int id) async{
     List<Map<String, dynamic>>? maps = await db?.query(
       "Items",
@@ -59,7 +68,8 @@ class NewsDbProvider{
 
   }
 
-  //todo 4 (next repository)
+  //todo 13 (tambah anotasi override)(finish)
+  @override
   Future<int>? addItem(ItemModel item){
     return db?.insert("Items", item.toMapForDb());
   }

@@ -38,7 +38,7 @@ void main(){
     });
 
     //todo 10
-    final ids = await newsApi.fetchTopId();
+    final ids = await newsApi.fetchTopIds();
 
     //todo 11
     expect(ids, [1,2,3,4]);
@@ -58,10 +58,10 @@ void main(){
     });
 
     //todo 15
-    ItemModel item = await newsApi.fetchItem(999);
+    ItemModel? item = await newsApi.fetchItem(999);
 
     //todo 16 (finish)
-    expect(item.id,123);
+    expect(item?.id,123);
 
   });
 

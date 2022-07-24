@@ -5,34 +5,37 @@ import '../models/item_model.dart';
 
 class Repository{
 
-  //todo 5
   NewsDbProvider dbProvider = NewsDbProvider();
 
-  //todo 6
   NewsApiProvider apiProvider = NewsApiProvider();
 
-  //todo 7
   Future<List<int>> fetchTopIds(){
-    return apiProvider.fetchTopId();
+    return apiProvider.fetchTopIds();
   }
 
-  //todo 8
-  Future<ItemModel> fetchItem(int id) async{
+  Future<ItemModel?> fetchItem(int id) async{
     var item = await dbProvider.fetchItem(id);
     if(item != null){
       return item;
     }
 
     item = await apiProvider.fetchItem(id);
-    dbProvider.addItem(item);
-    return item;
+    if(item!=null) {
+      dbProvider.addItem(item);
+      return item;
+    }
+    return null;
 
   }
+}
 
-  //todo 9 (coba flutter test)
-  //       akan muncul error
-  //       "'List<dynamic>' is not a subtype of type 'FutureOr<List<int>>'"
+//todo 5
+abstract class Source{
+  Future<List<int>> fetchTopIds();
+  Future<ItemModel?> fetchItem(int id);
+}
 
-  // untuk mengatasinya, gunakan casting lists (next news_api_provider)
-
+//todo 6 (next news_api_provider)
+abstract class Cache{
+  Future<int>? addItem(ItemModel item);
 }
