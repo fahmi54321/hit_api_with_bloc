@@ -6,12 +6,12 @@ import 'respository.dart';
 
 const _root = 'https://hacker-news.firebaseio.com/v0';
 
-class NewsApiProvider implements Source{ //todo 7
+class NewsApiProvider implements Source{
 
   Client client = Client();
 
 
-  @override //todo 8 (tambah anotasi override)
+  @override
   Future<List<int>> fetchTopIds() async{
     final response = await client.get(Uri.parse('$_root/topstories.json'));
 
@@ -21,7 +21,7 @@ class NewsApiProvider implements Source{ //todo 7
 
   }
 
-  @override //todo 9 (tambah anotasi override, next news_db_provider)
+  @override
   Future<ItemModel?> fetchItem(int id) async{
     final response = await client.get(Uri.parse('$_root/item/$id.json'));
     final parsedJson = json.decode(response.body);

@@ -6,10 +6,14 @@ import '../models/item_model.dart';
 import 'respository.dart';
 
 
-class NewsDbProvider implements Source,Cache{ //todo 10
+class NewsDbProvider implements Source,Cache{
   Database? db;
 
-  //todo 11
+  // jangan lupa ini, sebab untuk panggil init sebagai inisialisasi awal
+  NewsDbProvider(){
+    init();
+  }
+
   // return [] karena pada class ini method ini belum digunnakan
   // method ini digunakan untuk store and fetch top ids
   @override
@@ -50,7 +54,6 @@ class NewsDbProvider implements Source,Cache{ //todo 10
   }
 
 
-  //todo 12 (tambah anotasi override)
   @override
   Future<ItemModel?> fetchItem(int id) async{
     List<Map<String, dynamic>>? maps = await db?.query(
@@ -68,7 +71,6 @@ class NewsDbProvider implements Source,Cache{ //todo 10
 
   }
 
-  //todo 13 (tambah anotasi override)(finish)
   @override
   Future<int>? addItem(ItemModel item){
     return db?.insert("Items", item.toMapForDb());
